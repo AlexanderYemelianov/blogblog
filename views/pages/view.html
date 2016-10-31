@@ -1,0 +1,26 @@
+<?php Session::set('path', $_SERVER['REQUEST_URI']);?>
+<h1><?=$data['page'][0]['title']?></h1>
+<p align='justify'><?=$data['page'][0]['content']?></p>
+
+<br>
+
+<h3>Comments:</h3>
+
+<?php
+
+if(is_string($data['comments'])){
+    echo $data['comments'];
+}else{
+    foreach ($data['comments'] as $comments_data){ ?>
+        <div align="justify">
+            <p class='text-left'><b><?=$comments_data['login']?></b><span style="display:inline-block; width: 20px;"></span> <em><small><?=$comments_data['time']?></small></em></p>
+            <p class='text-right'><?=$comments_data['comment']?></p>
+        </div>
+    <br>
+<?php }} ?>
+
+<hr><h3>You can comment this news:</h3>
+<form action="/comments/add_comment" method="post">
+    <textarea name="comment" class="form-control"></textarea><br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Comment</button>
+</form>
